@@ -27,6 +27,16 @@ public class ReminderNode {
         this.status = setStatus; //this sets the completion status of the task listed above
     }
 
+    /**
+     * This sets all the values of this node at once so we can make it all at once when needed
+     * @param setReminder
+     * @param setStatus
+     */
+    public void setAll(String setReminder, Boolean setStatus){
+        this.reminder = setReminder; //sets reminder text
+        this.status = setStatus; //sets completion status
+    }
+
  //----------------------------------------Getters--------------------------------------------------------
 
     /**
