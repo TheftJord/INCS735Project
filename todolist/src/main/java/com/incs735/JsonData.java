@@ -2,7 +2,7 @@ package com.incs735;
 
 /**
  * 
- * @author Theft_Jord
+ * @author Edmund_Tartaro
  */
 public class JsonData {
     //these are the variables that we will take from the JSON File

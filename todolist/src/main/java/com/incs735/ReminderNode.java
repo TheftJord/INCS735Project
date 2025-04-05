@@ -2,7 +2,7 @@ package com.incs735;
 
 /**
  * 
- * @author Theft_Jord
+ * @author Edmund_Tartaro
  */
 public class ReminderNode {
     //these are the variables that will be in the reminder nodes
