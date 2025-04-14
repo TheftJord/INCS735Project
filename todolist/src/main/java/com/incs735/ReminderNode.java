@@ -5,6 +5,7 @@ package com.incs735;
  * @author Edmund_Tartaro
  */
 public class ReminderNode {
+    
     //these are the variables that will be in the reminder nodes
     private String reminder; //this is the reminder that the user wants to save
     private Boolean status; //this is the completion status of the reminder that is above
