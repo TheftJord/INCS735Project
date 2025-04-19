@@ -1,3 +1,17 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "maven.excludedFolders": [
+
+        "**/.*",
+        "**/node_modules",
+        "**/target",
+        "**/bin",
+        "**/archetype-resources"
+    ],
+    "java.eclipse.downloadSources": true,
+    "java.project.sourcePaths": [
+        "\"C:\\Users\\that_guy\\Documents\\GitHub\\INCS735Project\\todolist\\target\\classes\\com\\incs735\\gson-2.13.0.jar\"",
+        "C:\\Users\\that_guy\\Documents\\GitHub\\INCS735Project\\todolist\\target\\classes\\com\\incs735\\gson-2.13.0.jar"
+    ],
+
 }
