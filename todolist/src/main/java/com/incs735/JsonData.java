@@ -1,5 +1,7 @@
 package com.incs735;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 
  * @author Edmund_Tartaro
@@ -7,7 +9,9 @@ package com.incs735;
 public class JsonData {
 
     //these are the variables that we will take from the JSON File
+    @SerializedName("reminder")
     private static String reminder; //this is the reminder text that the user will input
+    @SerializedName("status")
     private static Boolean status; //this is used to make sure whether or not the task is already completed
 
  //--------------------------------------Getter Methods--------------------------------------------------------------
