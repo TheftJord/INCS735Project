@@ -15,9 +15,15 @@ public class ListProcesses {
     //variables
     private String selectedFile;
     private int count;
+    LinkedList<ReminderNode> theList = new LinkedList<ReminderNode>(); // list that data is going to be saved to when pulled from json file
 
     //imported classes
     JsonData Json = new JsonData();
+
+    // Gson variables needed
+    GsonBuilder builder = new GsonBuilder();
+    Gson gson = builder.create();
+    FileReader fr = null;
 
     /**
      * This makes nodes that can be added to a list for later use
@@ -34,16 +40,15 @@ public class ListProcesses {
         return Temp; //returns the node so that it can be used
     }
 
+    /**
+     * This convert a Json file todo list into a usable LinkedList
+     * This will not convert a json directory if we go that route and will need a specialized method and classes for that
+     * @return
+     */
     public LinkedList<ReminderNode> convertJsonToList(){
 
-        // Linked Lists
-        LinkedList<ReminderNode> theList = new LinkedList<ReminderNode>(); // list that data is going to be saved to when pulled from json file
+        // Linked List
         LinkedList<JsonData> listData = new LinkedList<JsonData>(); // The list that the data from the json file is going to go into to be processed
-
-        // Gson variables needed
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        FileReader fr = null;
 
         // Links FileReader to the selected file
         try{
@@ -70,5 +75,14 @@ public class ListProcesses {
         }
 
         return theList;
+    }
+
+    //still a work in progress
+    public void SaveToJson(){
+        LinkedList<JsonData> holder = new LinkedList<JsonData>();
+        builder.setPrettyPrinting();
+        if(selectedFile!=null){
+            
+        }
     }
 }
