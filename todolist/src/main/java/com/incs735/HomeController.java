@@ -14,4 +14,13 @@ public class HomeController {
     private void switchToSecondary() throws IOException {
         App.setRoot("");
     }
+
+    /**
+     * Closes the application safely
+     * @throws IOException
+     */
+    @FXML
+    private void closeApplication() throws IOException{
+        GuiApplications.actionClose(); //calls close action in GuiApplication.java
+    }
 }

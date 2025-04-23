@@ -1,15 +1,20 @@
 package com.incs735;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.LinkedList;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 
 
 public class ListProcesses {
     
     //variables
+    private String selectedFile;
+    private int count;
 
     //imported classes
     JsonData Json = new JsonData();
@@ -31,10 +36,39 @@ public class ListProcesses {
 
     public LinkedList<ReminderNode> convertJsonToList(){
 
-        LinkedList<ReminderNode> listData = new LinkedList<ReminderNode>();
+        // Linked Lists
+        LinkedList<ReminderNode> theList = new LinkedList<ReminderNode>(); // list that data is going to be saved to when pulled from json file
+        LinkedList<JsonData> listData = new LinkedList<JsonData>(); // The list that the data from the json file is going to go into to be processed
 
+        // Gson variables needed
         GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        FileReader fr = null;
 
-        return listData;
+        // Links FileReader to the selected file
+        try{
+            fr = new FileReader(selectedFile); // tries to link the selectedFile to the FileReader
+        } catch (FileNotFoundException ex){
+            System.out.println("An Error has Occured: Selected File Not Found - convertJsonToList()"); // produces and error message if the selected file doesn't link properly
+        }
+
+        listData = gson.fromJson(fr, new TypeToken<LinkedList<JsonData>>(){}.getType());
+        count = listData.size();
+
+        for(int i=0;i<count;i++){
+            
+            ReminderNode tempNode = new ReminderNode(); // sets up temprary node that the information will be saved to
+            
+            listData.get(i); //statically sets what node in the data list we are on IMPORTANT DO NOT TOUCH
+
+            // This converts the data from the json list over to a ReminderNode that we can use
+            String tempReminder = JsonData.getReminder();
+            Boolean tempStatus = JsonData.getStatus();
+            tempNode.setAll(tempReminder, tempStatus);
+            
+            theList.add(tempNode); // add the completed temp node to the linked list that we can use
+        }
+
+        return theList;
     }
 }
