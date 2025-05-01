@@ -6,9 +6,10 @@ package com.incs735;
  */
 public class ReminderNode {
     
-    //these are the variables that will be in the reminder nodes
-    private String reminder; //this is the reminder that the user wants to save
-    private Boolean status; //this is the completion status of the reminder that is above
+    // these are the variables that will be in the reminder nodes
+    private String reminder; // this is the reminder that the user wants to save
+    private Boolean status; // this is the completion status of the reminder that is above
+    private String priority; // this is the priority of the task above
 
  //---------------------------------------Setters----------------------------------------------------
 
@@ -17,7 +18,7 @@ public class ReminderNode {
      * @param setReminder
      */
     public void setReminder(String setReminder){
-        this.reminder = setReminder; //this sets the reminder string to what the inputed value is
+        this.reminder = setReminder; // this sets the reminder string to what the inputed value is
     }
 
     /**
@@ -25,7 +26,15 @@ public class ReminderNode {
      * @param setStatus
      */
     public void setStatus(Boolean setStatus){
-        this.status = setStatus; //this sets the completion status of the task listed above
+        this.status = setStatus; // this sets the completion status of the task listed above
+    }
+
+    /**
+     * this sets the value of the priority so we can use it later
+     * @param setPriority
+     */
+    public void setPriority(String setPriority){
+        this.priority = setPriority; // this sets the priority of the task listed above
     }
 
     /**
@@ -33,9 +42,10 @@ public class ReminderNode {
      * @param setReminder
      * @param setStatus
      */
-    public void setAll(String setReminder, Boolean setStatus){
-        this.reminder = setReminder; //sets reminder text
-        this.status = setStatus; //sets completion status
+    public void setAll(String setReminder, Boolean setStatus, String setPriority){
+        this.reminder = setReminder; // sets reminder text
+        this.status = setStatus; // sets completion status
+        this.priority = setPriority; // sets priority
     }
 
  //----------------------------------------Getters--------------------------------------------------------
@@ -45,7 +55,7 @@ public class ReminderNode {
      * @return
      */
     public String getReminder(){
-        return this.reminder; //returns reminder
+        return this.reminder; // returns reminder
     }
 
     /**
@@ -53,6 +63,14 @@ public class ReminderNode {
      * @return
      */
     public Boolean getStatus(){
-        return this.status; //returns status
+        return this.status; // returns status
+    }
+
+    /**
+     * this returns the value of the priority for other classes to use
+     * @return
+     */
+    public String getPriority(){
+        return this.priority; // returns priority
     }
 }

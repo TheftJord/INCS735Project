@@ -8,16 +8,18 @@ import com.google.gson.annotations.SerializedName;
  */
 public class JsonData {
 
-    //these are the variables that we will take from the JSON File
+    // these are the variables that we will take from the JSON File
     @SerializedName("reminder")
-    private static String reminder; //this is the reminder text that the user will input
+    private static String reminder; // this is the reminder text that the user will input
     @SerializedName("status")
-    private static Boolean status; //this is used to make sure whether or not the task is already completed
+    private static Boolean status; // this is used to make sure whether or not the task is already completed
+    @SerializedName("priority")
+    private static String priority; // this is used to make sure whether or not the task is already completed
 
  //--------------------------------------Getter Methods--------------------------------------------------------------
 
     /**
-     * This allows other classes have access to the reminder text
+     * This allows other classes to have access to the reminder text
      * @return
      */
     public static String getReminder(){
@@ -30,5 +32,13 @@ public class JsonData {
      */
     public static Boolean getStatus(){
         return status;
+    }
+
+    /**
+     * This allows other classes to have access to the priority of the task
+     * @return
+     */
+    public static String getPriority(){
+        return priority;
     }
 }
