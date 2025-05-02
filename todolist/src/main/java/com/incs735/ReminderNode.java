@@ -1,14 +1,19 @@
 package com.incs735;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
- * 
+ * This is an editable node that I will use to display and edit the nodes
  * @author Edmund_Tartaro
  */
 public class ReminderNode {
     
     // these are the variables that will be in the reminder nodes
+    @SerializedName("reminder")
     private String reminder; // this is the reminder that the user wants to save
+    @SerializedName("status")
     private Boolean status; // this is the completion status of the reminder that is above
+    @SerializedName("priority")
     private String priority; // this is the priority of the task above
 
  //---------------------------------------Setters----------------------------------------------------
@@ -72,5 +77,41 @@ public class ReminderNode {
      */
     public String getPriority(){
         return this.priority; // returns priority
+    }
+
+    //-----------------------------------------Tools---------------------------------------
+
+    /**
+     * This will compare the the values of ReminderNodes to see if they are the same
+     * @param other
+     * @return
+     */
+    public Boolean toCompare(ReminderNode other){
+
+        // the comparision if statement
+        if(this.reminder.compareTo(other.reminder) == 0 && this.status == other.status && this.priority.compareTo(other.priority) == 0){ // compares the nodes values to eachother
+            return true; // returns true if they are the same
+        }
+        else{
+            return false; // returns false if they are not
+        }
+    }
+
+    /**
+     * This is just for testing and isn't needed for the final build
+     */
+    public String toString(){
+        String returnValue = null;
+        String stringStatus = null;
+        if(status == true){
+            stringStatus = "true";
+        }
+        else{
+            stringStatus = "false";
+        }
+
+        returnValue = reminder + " | " + stringStatus + " | " + priority;
+
+        return returnValue;
     }
 }
