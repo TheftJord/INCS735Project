@@ -66,6 +66,7 @@ public class HomeController {
      */
     @FXML
     private void closeApplication() throws IOException{
+        saveToJson();
         GuiApplications.actionClose(); //calls close action in GuiApplication.java
     }
 
