@@ -179,30 +179,19 @@ public class ListProcesses {
      * @return
      */
     public void convertJsonToList() {
-    if (selectedFile != null) {
-        // Clear the current list to avoid duplicates
-        theList.clear();
+        if(selectedFile != null){
+            // Linked List
+            LinkedList<ReminderNode> listData = new LinkedList<ReminderNode>(); // The list that the data from the json file is going to go into to be processed
 
-        try {
-            fr = new FileReader(selectedFile.getName());
-        } catch (FileNotFoundException ex) {
-            System.out.println("An Error has Occured: Selected File Not Found - convertJsonToList()");
-            return;
-        }
+            // clears the list pre-emptivaly
+            theList.clear();
 
-        LinkedList<ReminderNode> listData = gson.fromJson(fr, new TypeToken<LinkedList<ReminderNode>>() {}.getType());
-
-        if (listData != null) {
-            for (ReminderNode node : listData) {
-                addToList(node.getReminder(), node.getStatus(), node.getPriority());
+            // Links FileReader to the selected file
+            try{
+                fr = new FileReader(selectedFile.getName()); // tries to link the selectedFile to the FileReader
+            } catch (FileNotFoundException ex){
+                System.out.println("An Error has Occured: Selected File Not Found - convertJsonToList()"); // produces and error message if the selected file doesn't link properly
             }
-        } else {
-            System.out.println("No data found in JSON file.");
-        }
-    } else {
-        System.out.println("An Error has Occured: Selected File Not Found - convertJsonToList()");
-    }
-}
 
             listData = gson.fromJson(fr, new TypeToken<LinkedList<ReminderNode>>(){}.getType());
 
@@ -216,7 +205,6 @@ public class ListProcesses {
         } else {
             System.out.println("An Error has Occured: Selected File Not Found - convertJsonToList()");
         }
-
 
     }
 
