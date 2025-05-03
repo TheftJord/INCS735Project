@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
@@ -15,6 +16,11 @@ import javafx.stage.FileChooser;
  * @author Edmund_Tartaro
  */
 public class HomeController {
+
+    // Variables
+    public boolean status = false; // default false for performance
+    public String priority;
+    public String reminder;
 
     // settings up ListProcesses
     ListProcesses lp = new ListProcesses(null);
@@ -31,8 +37,11 @@ public class HomeController {
     @FXML
     private TextField reminderText; // this will be used to get the text from the 
     @FXML
-    private ListView viewDisplay;
-    
+    private ListView<ReminderNode> viewDisplay; // this will show the To Do List
+    @FXML
+    private SplitMenuButton prioritySelector; // this will be needed to change the name to show the selection for the priority
+    @FXML
+    private SplitMenuButton statusSelector; // this will be needed to change the name to show the selection for the status
 
 
 //-------------------------------------------------------------------initializer------------------------------------------------------------------------------
@@ -72,9 +81,95 @@ public class HomeController {
         lp.printString();
     }
 
+    /**
+     * This is how items will be added to the list from the GUI
+     */
     @FXML
-    private void editToDoList(){
+    private void actionAddToList(){
 
+        // get values
+        reminder = reminderText.getText(); // gets value from the text field
+
+        // double check all values are selected
+        if(reminder.isEmpty() == true){ // double checks to make sure that the reminder text is not NULL
+            reminder = "No Text Provided";
+        }
+        if(priority.isEmpty()){ // double checks to make sure that the priority was selected and if not will default to "Low"
+            priority = "Low";
+        }
+
+        //add it to the list
+        addItem(reminder, reminder, priority); // adds item to list
+    }
+
+    /**
+     * This sets the priority for the task
+     * This is "High" choice
+     */
+    @FXML
+    private void actionSetHighPriority(){
+
+        // save value
+        priority = "High";
+
+        // changes GUI to display choice
+        prioritySelector.setText(priority);
+    }
+
+    /**
+     * This sets the priority for the task
+     * This is "Medium" choice
+     */
+    @FXML
+    private void actionSetMediumPriority(){
+
+        // save value
+        priority = "Medium";
+
+        // changes GUI to display choice
+        prioritySelector.setText(priority);
+    }
+
+    /**
+     * This sets the priority for the task
+     * This is "Low" choice
+     */
+    @FXML
+    private void actionSetLowPriority(){
+
+        // save value
+        priority = "Low";
+
+        // changes GUI to display choice
+        prioritySelector.setText(priority);
+    }
+
+    /**
+     * This sets the status for the task
+     * This is "Complete" choice
+     */
+    @FXML
+    private void actionSetStatusComplete(){
+
+        // save value
+        status = true;
+
+        // changes GUI to display choice
+        statusSelector.setText("Completed");
+    }
+
+    /**
+     * This sets the status for the task
+     * this is "Incomplete" choice
+     */
+    @FXML
+    private void actionSetStatusIncomplete(){
+
+        // save value
+        status = false;
+
+        // changes GUI to display choice
+        statusSelector.setText("Incomplete");
     }
 
     /**

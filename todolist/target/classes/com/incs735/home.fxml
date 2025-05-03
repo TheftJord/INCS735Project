@@ -22,15 +22,15 @@
                   <TextField fx:id="reminderText" prefHeight="25.0" prefWidth="231.0" />
                   <SplitMenuButton fx:id="prioritySelector" mnemonicParsing="false" text="Priority">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="High" />
-                      <MenuItem mnemonicParsing="false" text="Medium" />
-                        <MenuItem mnemonicParsing="false" text="Low" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionSetHighPriority" text="High" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionSetMediumPriority" text="Medium" />
+                        <MenuItem mnemonicParsing="false" onAction="#actionSetLowPriority" text="Low" />
                     </items>
                   </SplitMenuButton>
                   <SplitMenuButton fx:id="statusSelector" mnemonicParsing="false" text="Status">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Complete" />
-                      <MenuItem mnemonicParsing="false" text="Incomplete" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionSetStatusComplete" text="Complete" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionSetStatusIncomplete" text="Incomplete" />
                     </items>
                   </SplitMenuButton>
                </children>
@@ -40,7 +40,7 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="75.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" text="Add to List" />
+                  <Button mnemonicParsing="false" onAction="#actionAddToList" prefHeight="25.0" prefWidth="102.0" text="Add to List" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Edit List Item" />
                   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Remove List Item" />
                </children>
