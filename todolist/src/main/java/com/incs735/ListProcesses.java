@@ -91,6 +91,13 @@ public class ListProcesses {
     public void printString(){
         for(int i = 0;i<theList.size();i++){
            System.out.println(theList.get(i).toString());
+
+             // === Added logic here to show status ===
+        if(current.getStatus() == true){
+            System.out.println("Status: Completed");
+        } else {
+            System.out.println("Status: Not Completed");
+        }
         }
     }
 
