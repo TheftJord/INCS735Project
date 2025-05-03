@@ -11,15 +11,27 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane prefHeight="470.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.incs735.HomeController">
    <center>
       <VBox alignment="CENTER" prefHeight="371.0" prefWidth="429.0" spacing="20.0">
          <children>
-            <ListView fx:id="viewDisplay" prefHeight="200.0" prefWidth="200.0" />
+            <HBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To Do List:" />
+               </children>
+            </HBox>
+            <ListView fx:id="viewDisplay" onMouseClicked="#actionSelectNode" prefHeight="200.0" prefWidth="200.0" />
             <HBox spacing="25.0">
                <children>
-                  <TextField fx:id="reminderText" prefHeight="25.0" prefWidth="231.0" />
+                  <TextField fx:id="reminderText" prefHeight="25.0" prefWidth="231.0" promptText="Enter To Do Item Here" />
+                  <SplitMenuButton fx:id="statusSelector" mnemonicParsing="false" text="Status">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#actionSetStatusComplete" text="Complete" />
+                      <MenuItem mnemonicParsing="false" onAction="#actionSetStatusIncomplete" text="Incomplete" />
+                    </items>
+                  </SplitMenuButton>
                   <SplitMenuButton fx:id="prioritySelector" mnemonicParsing="false" text="Priority">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#actionSetHighPriority" text="High" />
@@ -27,16 +39,13 @@
                         <MenuItem mnemonicParsing="false" onAction="#actionSetLowPriority" text="Low" />
                     </items>
                   </SplitMenuButton>
-                  <SplitMenuButton fx:id="statusSelector" mnemonicParsing="false" text="Status">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#actionSetStatusComplete" text="Complete" />
-                      <MenuItem mnemonicParsing="false" onAction="#actionSetStatusIncomplete" text="Incomplete" />
-                    </items>
-                  </SplitMenuButton>
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="75.0">
                <children>
@@ -61,6 +70,7 @@
             <items>
                   <MenuItem mnemonicParsing="false" onAction="#loadFromJson" text="Load From JSON" />
                   <MenuItem mnemonicParsing="false" onAction="#saveToJson" text="Save To JSON" />
+                  <MenuItem mnemonicParsing="false" onAction="#actionClearList" text="Clear List" />
               <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Close" />
             </items>
           </Menu>

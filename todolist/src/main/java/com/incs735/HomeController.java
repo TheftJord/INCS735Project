@@ -22,6 +22,9 @@ public class HomeController {
     public String priority = null;
     public String reminder = null;
 
+    // Temporary Node
+    ReminderNode selectedNode = new ReminderNode(); // this is used to know which node is selected for remove and edit nodes
+
     // settings up ListProcesses
     ListProcesses lp = new ListProcesses(null);
 
@@ -67,6 +70,10 @@ public class HomeController {
         selectedFile = fileChooser.showOpenDialog(null); // makes user choose initial list on start up
 
         lp.setFile(selectedFile); // sets selected file on List Processes VERY IMPORTANT
+
+        // displays the initial file on bootup
+        lp.convertJsonToList(); // converts the file to a list
+        populateListView(); // displays the list in the list view
     }
 
 //----------------------------------------------------------GUI Actions------------------------------------------------------------------
@@ -82,7 +89,7 @@ public class HomeController {
         reminder = reminderText.getText(); // gets value from the text field
 
         // double check all values are selected
-        if(reminder == null){ // double checks to make sure that the reminder text is not NULL
+        if(reminder == null || reminder.isEmpty()){ // double checks to make sure that the reminder text is not NULL
             reminder = "No Text Provided";
         }
         if(priority == null){ // double checks to make sure that the priority was selected and if not will default to "Low"
@@ -92,13 +99,11 @@ public class HomeController {
         //add it to the list
         addItem(reminder, status, priority); // adds item to list
 
+        // displays it on the list view
+        populateListView();
+
         // reset to default
-        status = false;
-        priority = null;
-        reminder = null;
-        prioritySelector.setText("Priority");
-        statusSelector.setText("Status");
-        reminderText.setText("");
+        clearChoices();
     }
 
     /**
@@ -106,7 +111,23 @@ public class HomeController {
      */
     @FXML
     private void actionEditListItem(){
-        return; // temparory to make sure that the program doesn't crash while using
+        
+        // get values
+        reminder = reminderText.getText();
+
+        // makes sure that something is in the textfield
+        if(reminder == null || reminder.isEmpty()){ // double checks to make sure that the reminder text is not NULL
+            reminder = "No Text Provided";
+        }
+
+        // edits it on the list
+        editItem(selectedNode, reminder, status, priority);
+
+        // displays it on the list view
+        populateListView();
+
+        // reset to default
+        clearChoices();
     }
 
     /**
@@ -114,7 +135,15 @@ public class HomeController {
      */
     @FXML
     private void actionRemoveListItem(){
-        return; // temparory to make sure that the program doesn't crash while using
+        
+        // removes item from the list
+        removeItem(selectedNode);
+
+        // displays the updated list on listview
+        populateListView();
+
+        // resets to default
+        clearChoices();
     }
 
     /**
@@ -197,19 +226,58 @@ public class HomeController {
         GuiApplications.actionClose(); //calls close action in GuiApplication.java
     }
 
+    /**
+     * clears the list completely to start fresh
+     */
+    @FXML
+    private void actionClearList(){
+
+        // prompts user to save first
+        saveToJson();
+
+        // clears list that is store
+        lp.theList.clear();
+
+        // clears the list view
+        viewDisplay.getItems().clear();
+    }
+
+    /**
+     * this method allows the user to pick the item that they are going to edit or remove
+     */
+    @FXML
+    private void actionSelectNode(){
+        
+        // sets selectedNode to the node that was selected
+        selectedNode = viewDisplay.getSelectionModel().getSelectedItem();
+
+        // setting the values from the node
+        reminder = selectedNode.getReminder();
+        status = selectedNode.getStatus();
+        priority = selectedNode.getPriority();
+
+        // setting the information into the proper fields
+        reminderText.setText(selectedNode.getReminder()); // sets the textfield to match the selected file
+        prioritySelector.setText(selectedNode.getPriority()); // sets the priority dropdown to match the selected file
+        if(selectedNode.getStatus() == true){ // sets the status dropdown to "Completed" if value is true
+            statusSelector.setText("Completed");
+        }
+        else{ // sets the status dropdowm to "Incompleted" if values is anyother then true for safe fail
+            statusSelector.setText("Incomplete");
+        }
+    }
+
     //------------------------------------------------------List Processes-----------------------------------------------------------
 
     /**
      * This will remove items from the list
      * you will need the values in the node for this to work
-     * @param reminder
-     * @param status
-     * @param priority
+     * @param currentNode
      */
-    public void removeItem(String reminder, Boolean status, String priority){
+    public void removeItem(ReminderNode currentNode){
 
         // Remove item from list
-        lp.removeItem(lp.makeItem(reminder, status, formatPriority(priority))); // removes item
+        lp.removeItem(currentNode); // removes item
     }
 
     /**
@@ -229,17 +297,15 @@ public class HomeController {
     /**
      * This will edit a pre-existing item
      * you will need the values in the node for this to work
-     * @param oldReminder
-     * @param oldStatus
-     * @param oldPriority
+     * @param currentNode
      * @param newReminder
      * @param newStatus
      * @param newPriority
      */
-    public void editItem(String oldReminder, Boolean oldStatus, String oldPriority, String newReminder, Boolean newStatus, String newPriority){
+    public void editItem(ReminderNode currentNode, String newReminder, Boolean newStatus, String newPriority){
 
         // Edit item from list
-        lp.editItem(lp.makeItem(oldReminder, oldStatus, formatPriority(oldPriority)), newReminder, newStatus, formatPriority(newPriority));
+        lp.editItem(currentNode, newReminder, newStatus, formatPriority(newPriority));
     }
 
     /**
@@ -295,6 +361,9 @@ public class HomeController {
 
         // converts what is on the file to a linked list
         lp.convertJsonToList();
+
+        // loads it onto the list
+        populateListView();
     }
 
     public void saveToJson(){
@@ -314,7 +383,7 @@ public class HomeController {
      * @param status
      * @return
      */
-    private Boolean convertToBoolean(String status){
+    /* private Boolean convertToBoolean(String status){
         //converts String true or false to Boolean
         Boolean tempStatus = null;
         if(status.toUpperCase().compareTo("TRUE") == 0){ // checks if value says true
@@ -328,7 +397,7 @@ public class HomeController {
         } 
 
         return tempStatus; // returns boolean
-    }
+    } */
 
     /**
      * makes it so the High, Medium, and Low are all printed the same (OCD reasons)
@@ -364,6 +433,19 @@ public class HomeController {
         // resest values
         prioritySelector.setText("Priority");
         statusSelector.setText("Status");
-        reminderText.setText("");
+        reminderText.clear();
+    }
+
+    /**
+     * This populates the linked list with the most up to date information
+     */
+    @FXML
+    private void populateListView(){
+
+        // clears list view
+        viewDisplay.getItems().clear();
+
+        // populates list view with objects
+        viewDisplay.getItems().addAll(lp.theList);
     }
 }

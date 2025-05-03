@@ -104,10 +104,10 @@ public class ReminderNode {
         String returnValue = null;
         String stringStatus = null;
         if(status == true){
-            stringStatus = "true";
+            stringStatus = "Completed";
         }
         else{
-            stringStatus = "false";
+            stringStatus = "Incomplete";
         }
 
         returnValue = reminder + " | " + stringStatus + " | " + priority;
