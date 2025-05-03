@@ -85,22 +85,6 @@ public class ListProcesses {
         this.selectedFile = setFile;
     }
 
-    /**
-     * This is just for system testing and isn't needed for the final build
-     */
-    public void printString(){
-        for(int i = 0;i<theList.size();i++){
-           System.out.println(theList.get(i).toString());
-
-             // === Added logic here to show status ===
-        /* if(current.getStatus() == true){
-            System.out.println("Status: Completed");
-        } else {
-            System.out.println("Status: Not Completed");
-        } */
-        }
-    }
-
     //--------------------------------------------------------------------Edit List-------------------------------------------------------------------------------
 
 
@@ -196,8 +180,6 @@ public class ListProcesses {
             listData = gson.fromJson(fr, new TypeToken<LinkedList<ReminderNode>>(){}.getType());
 
             for(int i=0;i<listData.size();i++){
-                
-                // ReminderNode tempNode = new ReminderNode(); // sets up temprary node that the information will be saved to
 
                 // This converts the data from the json list over to a ReminderNode that we can use
                 addToList(listData.get(i).getReminder(), listData.get(i).getStatus(), listData.get(i).getPriority());

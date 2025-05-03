@@ -98,7 +98,7 @@ public class ReminderNode {
     }
 
     /**
-     * This is just for testing and isn't needed for the final build
+     * This converts the node into a string that can be used to present it on the ListView
      */
     public String toString(){
         String returnValue = null;
