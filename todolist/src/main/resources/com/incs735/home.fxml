@@ -41,8 +41,8 @@
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="75.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#actionAddToList" prefHeight="25.0" prefWidth="102.0" text="Add to List" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Edit List Item" />
-                  <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="121.0" text="Remove List Item" />
+                  <Button mnemonicParsing="false" onAction="#actionEditListItem" prefHeight="25.0" prefWidth="107.0" text="Edit List Item" />
+                  <Button mnemonicParsing="false" onAction="#actionRemoveListItem" prefHeight="25.0" prefWidth="121.0" text="Remove List Item" />
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />

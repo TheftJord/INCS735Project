@@ -19,8 +19,8 @@ public class HomeController {
 
     // Variables
     public boolean status = false; // default false for performance
-    public String priority;
-    public String reminder;
+    public String priority = null;
+    public String reminder = null;
 
     // settings up ListProcesses
     ListProcesses lp = new ListProcesses(null);
@@ -71,15 +71,6 @@ public class HomeController {
 
 //----------------------------------------------------------GUI Actions------------------------------------------------------------------
 
-    /**
-     * Used for testing delete when Implementing
-     * @throws IOException
-     */
-    @FXML
-    private void switchToSecondary() throws IOException {
-        loadFromJson();
-        lp.printString();
-    }
 
     /**
      * This is how items will be added to the list from the GUI
@@ -91,15 +82,39 @@ public class HomeController {
         reminder = reminderText.getText(); // gets value from the text field
 
         // double check all values are selected
-        if(reminder.isEmpty() == true){ // double checks to make sure that the reminder text is not NULL
+        if(reminder == null){ // double checks to make sure that the reminder text is not NULL
             reminder = "No Text Provided";
         }
-        if(priority.isEmpty()){ // double checks to make sure that the priority was selected and if not will default to "Low"
+        if(priority == null){ // double checks to make sure that the priority was selected and if not will default to "Low"
             priority = "Low";
         }
 
         //add it to the list
-        addItem(reminder, reminder, priority); // adds item to list
+        addItem(reminder, status, priority); // adds item to list
+
+        // reset to default
+        status = false;
+        priority = null;
+        reminder = null;
+        prioritySelector.setText("Priority");
+        statusSelector.setText("Status");
+        reminderText.setText("");
+    }
+
+    /**
+     * This is how items will be edited from the GUI
+     */
+    @FXML
+    private void actionEditListItem(){
+        return; // temparory to make sure that the program doesn't crash while using
+    }
+
+    /**
+     * This is how items will be removed from the GUI
+     */
+    @FXML
+    private void actionRemoveListItem(){
+        return; // temparory to make sure that the program doesn't crash while using
     }
 
     /**
@@ -205,11 +220,11 @@ public class HomeController {
      * @param status
      * @param priority
      */
-    public void removeItem(String reminder, String status, String priority){
+    /* public void removeItem(String reminder, String status, String priority){
         
         // Remove item from list
         lp.removeItem(lp.makeItem(reminder, convertToBoolean(status), priority)); // converts the String status into a boolean then removes item
-    }
+    } */
 
     /**
      * This will edit a pre-existing item
@@ -238,11 +253,11 @@ public class HomeController {
      * @param newStatus
      * @param newPriority
      */
-    public void editItem(String oldReminder, String oldStatus, String oldPriority, String newReminder, String newStatus, String newPriority){
+    /* public void editItem(String oldReminder, String oldStatus, String oldPriority, String newReminder, String newStatus, String newPriority){
 
         // Edit item from list
         lp.editItem(lp.makeItem(oldReminder, convertToBoolean(oldStatus), formatPriority(oldPriority)), newReminder, convertToBoolean(newStatus), formatPriority(newPriority));
-    }
+    } */
 
     /**
      * this will add the item to list
@@ -263,11 +278,11 @@ public class HomeController {
      * @param status
      * @param priority
      */
-    public void addItem(String reminder, String status, String priority){
+    /* public void addItem(String reminder, String status, String priority){
 
         // Add item to the list
         lp.addToList(reminder, convertToBoolean(status), formatPriority(priority));
-    }
+    } */
 
     /**
      * This will load files from a JSON file
@@ -309,7 +324,7 @@ public class HomeController {
             tempStatus = false;
         }
         else {
-            System.out.println("An Error Has Occurred: Non True or False Value - removeItem() | HomeController"); // error reporting
+            System.out.println("An Error Has Occurred: Non True or False Value - convertToBoolean | HomeController"); // error reporting
         } 
 
         return tempStatus; // returns boolean
