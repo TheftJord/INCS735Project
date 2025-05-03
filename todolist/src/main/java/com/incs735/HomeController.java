@@ -349,4 +349,21 @@ public class HomeController {
 
          return returnValue; // returns values    
     }
+
+    /**
+     * This is used clear the choices for next use
+     */
+    @FXML
+    private void clearChoices(){
+
+        // to reset the values
+        status = false;
+        priority = null;
+        reminder = null;
+
+        // resest values
+        prioritySelector.setText("Priority");
+        statusSelector.setText("Status");
+        reminderText.setText("");
+    }
 }
