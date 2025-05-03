@@ -91,6 +91,13 @@ public class ListProcesses {
     public void printString(){
         for(int i = 0;i<theList.size();i++){
            System.out.println(theList.get(i).toString());
+
+             // === Added logic here to show status ===
+        /* if(current.getStatus() == true){
+            System.out.println("Status: Completed");
+        } else {
+            System.out.println("Status: Not Completed");
+        } */
         }
     }
 
@@ -171,11 +178,13 @@ public class ListProcesses {
      * This will not convert a json directory if we go that route and will need a specialized method and classes for that
      * @return
      */
-    public void convertJsonToList(){
-
+    public void convertJsonToList() {
         if(selectedFile != null){
             // Linked List
             LinkedList<ReminderNode> listData = new LinkedList<ReminderNode>(); // The list that the data from the json file is going to go into to be processed
+
+            // clears the list pre-emptivaly
+            theList.clear();
 
             // Links FileReader to the selected file
             try{
@@ -196,7 +205,6 @@ public class ListProcesses {
         } else {
             System.out.println("An Error has Occured: Selected File Not Found - convertJsonToList()");
         }
-
 
     }
 
