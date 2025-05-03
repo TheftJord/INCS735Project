@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 /**
@@ -24,6 +26,16 @@ public class HomeController {
     FileReader fr;
     // sets it so the file explorer can only see json files
     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("JSON files (*.json)","*.json");
+
+    // FXML variables
+    @FXML
+    private TextField reminderText; // this will be used to get the text from the 
+    @FXML
+    private ListView viewDisplay;
+    
+
+
+//-------------------------------------------------------------------initializer------------------------------------------------------------------------------
 
     /**
      * Initializer class that will set up the following processes that will be used later
@@ -58,6 +70,11 @@ public class HomeController {
     private void switchToSecondary() throws IOException {
         loadFromJson();
         lp.printString();
+    }
+
+    @FXML
+    private void editToDoList(){
+
     }
 
     /**
